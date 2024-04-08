@@ -24,27 +24,42 @@ This repository contains a skeleton project for building a web application with 
    git clone https://github.com/washyu/webapp_db_skeleton.git
    ```
 
-2. Open the project in Visual Studio Code.
+2. Set up the environment variables:
+- Create a `.env` file in the root directory of the project.
+- Add the following variables to the `.env` file:
+  ```
+  DB_HOST=hostname
+  DB_USER=username
+  DB_PASS=password
+  DB_NAME=database_name
 
-3. When prompted, click on "Reopen in Container" to start the dev container.
+  API_PORT=5000
 
-4. Wait for the dev container to be built and the dependencies to be installed. This may take a few minutes.
+  ```
+  Replace `username`, `password`, `hostname`, and `database_name` with your actual database credentials and connection details.
+  Replace 5000 with the port you want the api server listening on.
 
-5. Once the dev container is running, open a terminal in Visual Studio Code.
+3. Open the project in Visual Studio Code.
 
-6. In the terminal, navigate to the `server` directory and run the following command to start the Express API:
+4. When prompted, click on "Reopen in Container" to start the dev container.
+
+5. Wait for the dev container to be built and the dependencies to be installed. This may take a few minutes.
+
+6. Once the dev container is running, open a terminal in Visual Studio Code.
+
+7. In the terminal, navigate to the `server` directory and run the following command to start the Express API:
    ```
    npm run dev
    ```
 
-7. Open another terminal in Visual Studio Code.
+8. Open another terminal in Visual Studio Code.
 
-8. In the new terminal, navigate to the `client` directory and run the following command to start the React development server:
+9. In the new terminal, navigate to the `client` directory and run the following command to start the React development server:
    ```
    npm run dev
    ```
 
-9. Open your browser and navigate to `http://localhost:3000` to view the web application.
+10. Open your browser and navigate to `http://localhost:3000` to view the web application.
 
 ## Configuration
 
