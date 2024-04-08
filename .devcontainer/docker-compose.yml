@@ -19,12 +19,13 @@ services:
     # (Adding the "ports" property to this file will not forward from a Codespace.)
 
   db:
+    env_file: ../.env
     image: mysql:8.0
     environment:
-      - MYSQL_DATABASE=webdatabase
-      - MYSQL_USER=service
-      - MYSQL_PASSWORD=password
-      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=#{DB_PASS}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASS}
     volumes:
       - mysql-data:/var/lib/mysql
 
