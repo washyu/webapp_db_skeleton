@@ -1,8 +1,13 @@
 const Sequelize = require('sequelize');
+const path = require('path');
 
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
-  host: process.env.DB_HOST,
-  dialect: 'mysql',
+// Define the database file path
+const dbPath = path.resolve(__dirname, '..', 'data', 'database.sqlite');
+
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: dbPath,
+  logging: console.log, // Set to false to disable SQL query logging
 });
 
 module.exports = sequelize;

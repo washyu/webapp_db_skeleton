@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const bcrypt = require('bcryptjs');
 
 const User = sequelize.define('User', {
   first_name: {
@@ -14,6 +15,9 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: DataTypes.STRING,
@@ -27,6 +31,32 @@ const User = sequelize.define('User', {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
+  avatarIndex: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: 0
+  }
+}, {
+  hooks: {
+    beforeCreate: async (user) => {
+      if (user.password) {
+        // Get salt rounds from environment variable or use default
+        const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS || '10');
+        user.password = await bcrypt.hash(user.password, saltRounds);
+      }
+    },
+    beforeUpdate: async (user) => {
+      if (user.changed('password')) {
+        const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS || '10');
+        user.password = await bcrypt.hash(user.password, saltRounds);
+      }
+    }
+  }
 });
+
+// Instance method to compare password
+User.prototype.comparePassword = async function(candidatePassword) {
+  return bcrypt.compare(candidatePassword, this.password);
+};
 
 module.exports = User;
